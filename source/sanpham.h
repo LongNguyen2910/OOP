@@ -21,7 +21,7 @@ class SanPham : public ObjectInterface {
     public:
         SanPham() {
             ten = "Unknown";
-            ma = "SP000";
+            ma = "SPCT000";
             xuatXu = "Unknown";
             hsd = Date();
             loaiHang = 1;
@@ -51,7 +51,7 @@ class SanPham : public ObjectInterface {
                 cout << "set ten loi\n";
             }
         }
-        void getMa(string_view m) { ma = m; }
+        void setMa(string_view m) { ma = m; }
         string getMa() {return ma;}
         int getLoaiHang() {return loaiHang;}
         void setLoaiHang(int loai) {

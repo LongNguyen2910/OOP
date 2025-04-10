@@ -33,4 +33,9 @@ bool inRange(int x, int a, int b) {
     return x >= a && x <= b;
 }
 
+bool checkMa(string_view ma, int size) {
+    if (ma.size() != size) return 0;
+    return 1;
+}
+
 #endif

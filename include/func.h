@@ -19,18 +19,4 @@ void getNow(int& day, int& month, int& year) {
     day = t->tm_mday;
 }
 
-string_view nhapMa() {
-    string s;
-    do {
-        cout << "Nhap ma: ";
-        cin >> s;
-        if (s.size() != 5) {
-            cout << "Ma can 5 ki tu\n";
-        } 
-    } while (s.size() != 5);
-    return s;
-}
-
-
-
 #endif

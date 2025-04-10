@@ -2,10 +2,11 @@
 #define NHACUNGCAP_H
 #include "sanpham.h"
 #include <iostream>
+#include <math.h>
 #include <vector>
 using namespace std;
 
-class NhaCungCap : public ObjectInterface {
+class NhaCungCap{
     private:
         string maNhaCungCap;
         string tenNhaCungCap;
@@ -34,7 +35,13 @@ class NhaCungCap : public ObjectInterface {
             }
         }
         string getMa() { return maNhaCungCap; }
-        void setMa(string_view m) { maNhaCungCap = m; }
+        void setMa(string_view m) { 
+            if (checkMa(m, 5)) {
+                maNhaCungCap = m;
+            } else {
+                cout << "set ma loi!\n";
+            }
+        }
         string getTen() {
             return tenNhaCungCap;
         }
@@ -50,15 +57,57 @@ class NhaCungCap : public ObjectInterface {
             sanPhamCungCap = other.sanPhamCungCap;
             return *this;
         }
-        // bool operator==(NhaCungCap& another) {
-            
-        // }
+        bool operator==(NhaCungCap& another) {
+            return (maNhaCungCap == another.maNhaCungCap) 
+            && (tenNhaCungCap == another.tenNhaCungCap) 
+            && (thongTinLienHe == another.thongTinLienHe);
+        }
 
-        void luu(string) override;
-        void nhap() override;
-        void hienThi() override;
-        bool kiemTraThoiHan() override;
-        void nhapFile(string) override;
+        virtual void nhap();
+        virtual void hienThi();
 };
 
+void NhaCungCap::nhap() {
+    do {
+        cout << "Nhap ma nha cung cap: ";
+        getline(cin, maNhaCungCap);
+        cout << "Nhap ten nha cung cap: ";
+        getline(cin, tenNhaCungCap);
+        cout << "Nhap thong tin lien he: ";
+        getline(cin, thongTinLienHe);
+        cout << "Nhap so san pham cung cap: ";
+        int n;
+        cin >> n;
+        cin.ignore(100, '\n');
+        sanPhamCungCap.resize(n);
+        for (int i = 0; i < n; i++) {
+            sanPhamCungCap[i].nhap();
+            if (sanPhamCungCap.size() == 1) {
+                string tmp = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]) + "00" + to_string(1);
+                sanPhamCungCap[i].setMa(tmp);
+            } else {
+                int tmp = (sanPhamCungCap[i-1].getMa()[4] - '0')*100 + 
+                        (sanPhamCungCap[i-1].getMa()[5] - '0')*10 +
+                        (sanPhamCungCap[i-1].getMa()[6] - '0');
+                int ma = max((int)sanPhamCungCap.capacity(), tmp);
+                string tmp1 = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]);
+                tmp1 += ma+1 < 10 ? "00" : (ma+1 < 100 ? "0" : "");
+                sanPhamCungCap[i].setMa(tmp1 + to_string(ma+1));
+            }
+        }
+        if (!checkMa(maNhaCungCap, 5) || tenNhaCungCap.empty() || thongTinLienHe.empty()) {
+            cout << "Nhap lai\n";
+        }
+    } while (!checkMa(maNhaCungCap, 5) || tenNhaCungCap.empty() || thongTinLienHe.empty());
+}
+
+void NhaCungCap::hienThi() {
+    cout << "Ma nha cung cap: " << maNhaCungCap << "\n";
+    cout << "Ten nha cung cap: " << tenNhaCungCap << "\n";
+    cout << "Thong tin lien he: " << thongTinLienHe << "\n";
+    cout << "Danh sach san pham cung cap:\n";
+    for (auto& i : sanPhamCungCap) {
+        i.hienThi();
+    }
+}
 #endif
