@@ -77,6 +77,20 @@ class Date {
             else 
                 cout << "set year loi\n";
         }
+        bool operator>=(Date& another) {
+            if (year > another.year) {
+                return 1;
+            } else if (year == another.year) {
+                if (month > another.month) {
+                    return 1;
+                } else if (month == another.month) {
+                    if (day >= another.day)
+                        return 1;
+                } else 
+                    return 0;
+            }
+            return 0;
+        }
         int getDay() {return day;}
         int getMonth() {return month;}
         int getYear() {return year;}
