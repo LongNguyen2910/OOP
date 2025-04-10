@@ -4,11 +4,14 @@
 template <class T>
 struct ListInterface {
     virtual void load() = 0;
+    virtual void luu() = 0;
     virtual void them() = 0;
     virtual void hienThi() = 0;
     virtual void xoa() = 0;
     virtual void sua() = 0;
-    virtual T* timKiemMa() = 0; 
+    virtual void sapXep() = 0;
+    virtual T* timKiem(string_view ten) = 0;
+    virtual T* timKiem();
 };
 
 struct ObjectInterface {
