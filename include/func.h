@@ -2,6 +2,7 @@
 #define FUNC_H
 #include <iostream>
 #include <ctime>
+#include "otherstruct.h"
 #include <algorithm>
 using namespace std;
 
@@ -11,12 +12,13 @@ bool compare(string s1, string s2) {
     return s1 == s2;
 }
 
-void getNow(int& day, int& month, int& year) {
+Date getNow() {
     time_t now = time(0);
     tm* t = localtime(&now);
-    year = (t->tm_year + 1900);
-    month = (t->tm_mon + 1);
-    day = t->tm_mday;
+    int year = (t->tm_year + 1900);
+    int month = (t->tm_mon + 1);
+    int day = t->tm_mday;
+    return Date(day, month, year);
 }
 
 string_view nhapMa() {

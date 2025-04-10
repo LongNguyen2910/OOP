@@ -1,6 +1,7 @@
 #ifndef OTHERSTRUCT_H
 #define OTHERSTRUCT_H
 #include "validate.h"
+#include "func.h"
 #include <iostream>
 using namespace std;
 
@@ -90,6 +91,28 @@ class Date {
                     return 0;
             }
             return 0;
+        }
+        bool operator>(Date& another) {
+            if (year > another.year) {
+                return 1;
+            } else if (year == another.year) {
+                if (month > another.month) {
+                    return 1;
+                } else if (month == another.month) {
+                    if (day > another.day)
+                        return 1;
+                } else 
+                    return 0;
+            }
+            return 0;
+        }
+        bool leNow() {
+            Date now = getNow();
+            return (now >= *this); 
+        }
+        bool geNow() {
+            Date now = getNow();
+            return (*this >= now);
         }
         int getDay() {return day;}
         int getMonth() {return month;}
