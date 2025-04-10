@@ -1,7 +1,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-template <typename T>
+template <class T>
 struct ListInterface {
     virtual void load() = 0;
     virtual void them() = 0;

@@ -106,17 +106,17 @@ class Date {
             }
             return 0;
         }
-        bool leNow() {
+        bool lNow() {
             int x, y, z;
             getNow(x, y, z);
             Date now(x, y, z);
-            return (now >= *this); 
+            return (now > *this); 
         }
-        bool geNow() {
+        bool gNow() {
             int x, y, z;
             getNow(x, y, z);
             Date now(x, y, z);
-            return (*this >= now);
+            return (*this > now);
         }
         int getDay() {return day;}
         int getMonth() {return month;}

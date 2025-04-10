@@ -70,7 +70,7 @@ class SanPham : public ObjectInterface {
         }
         Date getNgaySX() {return ngaySX;}
         void setNgaySX(Date n) {
-            if (n.leNow()) {
+            if (!n.gNow()) {
                 ngaySX = n;
             } else {
                 cout << "set ngay san xuat loi\n";

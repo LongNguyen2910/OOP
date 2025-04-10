@@ -20,9 +20,10 @@ void SanPham::nhap() {
         cin >> ngaySX;
         cout << "Nhap hsd\n";
         cin >> hsd;
-        if (!inRange(loaiHang, 1, 6) || !ten.empty() || !xuatXu.empty() || ngaySX.geNow() || (ngaySX > hsd))
+        if (!inRange(loaiHang, 1, 6) || ten.empty() || xuatXu.empty() || ngaySX.gNow() || (ngaySX > hsd)) {
             cout << "nhap loi\n";
-    } while (!inRange(loaiHang, 1, 6) && !ten.empty() && !xuatXu.empty() && ngaySX.geNow() && (ngaySX > hsd));
+        }
+    } while (!inRange(loaiHang, 1, 6) || ten.empty() || xuatXu.empty() || ngaySX.gNow() || (ngaySX > hsd));
 }
 
 void SanPham::nhapFile(string file) {
@@ -78,5 +79,8 @@ bool SanPham::kiemTraThoiHan() {
 }
 
 int main() {
+    SanPham x;
+    x.nhap();
+    x.kiemTraThoiHan();
     return 0;
 }
