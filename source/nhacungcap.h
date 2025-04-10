@@ -82,8 +82,9 @@ void NhaCungCap::nhap() {
         sanPhamCungCap.resize(n);
         for (int i = 0; i < n; i++) {
             sanPhamCungCap[i].nhap();
-            if (sanPhamCungCap.size() == 1) {
-                string tmp = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]) + "00" + to_string(1);
+            if (sanPhamCungCap.size() == 0) {
+                string tmp = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]) + "00" + to_string(1) + "0";
+                cout << tmp << "\n";
                 sanPhamCungCap[i].setMa(tmp);
             } else {
                 int tmp = (sanPhamCungCap[i-1].getMa()[4] - '0')*100 + 
