@@ -107,11 +107,15 @@ class Date {
             return 0;
         }
         bool leNow() {
-            Date now = getNow();
+            int x, y, z;
+            getNow(x, y, z);
+            Date now(x, y, z);
             return (now >= *this); 
         }
         bool geNow() {
-            Date now = getNow();
+            int x, y, z;
+            getNow(x, y, z);
+            Date now(x, y, z);
             return (*this >= now);
         }
         int getDay() {return day;}

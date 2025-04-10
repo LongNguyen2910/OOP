@@ -1,4 +1,5 @@
 #include "sanpham.h"
+#include "../include/func.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -67,8 +68,13 @@ void SanPham::hienThi() {
     cout << hsd;
 }
 
-void SanPham::kiemTraThoiHan() {
-    return;
+bool SanPham::kiemTraThoiHan() {
+    int day, month, year;
+    getNow(day, month, year);
+    Date now(day, month, year);
+    if (hsd >= now) {
+        return 1;
+    } else return 0;
 }
 
 int main() {

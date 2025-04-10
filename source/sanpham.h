@@ -88,7 +88,7 @@ class SanPham : public ObjectInterface {
         void luu(string) override;
         void nhap() override;
         void hienThi() override;
-        void kiemTraThoiHan() override;
+        bool kiemTraThoiHan() override;
         void nhapFile(string) override;
 };
 
