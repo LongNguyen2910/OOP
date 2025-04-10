@@ -1,5 +1,5 @@
-#ifndef LIST_INTERFACE_H
-#define LIST_INTERFACE_H
+#ifndef INTERFACE_H
+#define INTERFACE_H
 
 template <typename T>
 struct ListInterface {
