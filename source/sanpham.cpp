@@ -19,7 +19,9 @@ void SanPham::nhap() {
         cin >> ngaySX;
         cout << "Nhap hsd\n";
         cin >> hsd;
-    } while (!inRange(loaiHang, 1, 6) && !ten.empty() && !xuatXu.empty());
+        if (!inRange(loaiHang, 1, 6) || !ten.empty() || !xuatXu.empty() || ngaySX.geNow() || (ngaySX > hsd))
+            cout << "nhap loi\n";
+    } while (!inRange(loaiHang, 1, 6) && !ten.empty() && !xuatXu.empty() && ngaySX.geNow() && (ngaySX > hsd));
 }
 
 void SanPham::nhapFile(string file) {

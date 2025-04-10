@@ -68,8 +68,22 @@ class SanPham : public ObjectInterface {
                 cout << "set xuat xu loi\n";
             }
         }
+        Date getNgaySX() {return ngaySX;}
+        void setNgaySX(Date n) {
+            if (n.leNow()) {
+                ngaySX = n;
+            } else {
+                cout << "set ngay san xuat loi\n";
+            }
+        }
         Date getHsd() {return hsd;}
-        void setHsd(Date d) {hsd = d;}
+        void setHsd(Date d) {
+            if (d >= ngaySX) {
+                hsd = d;
+            } else {
+                cout << "set hsd loi\n";
+            }
+        }
 
         void luu(string) override;
         void nhap() override;
