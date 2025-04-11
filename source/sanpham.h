@@ -142,8 +142,9 @@ void SanPham::luu(string file = "../data/sanpham.txt") {
     outf << ten << endl;
     outf << loaiHang << endl;
     outf << xuatXu << endl;
-    outf << ngaySX.getDay() << ngaySX.getMonth() << ngaySX.getYear() << endl;
-    outf << hsd.getDay() << hsd.getMonth() << hsd.getYear() << endl;
+    outf << ngaySX << endl;
+    outf << hsd << endl;
+    outf.close();
 }
 
 void SanPham::hienThi() {
@@ -158,10 +159,7 @@ void SanPham::hienThi() {
 }
 
 bool SanPham::kiemTraThoiHan() {
-    int day, month, year;
-    getNow(day, month, year);
-    Date now(day, month, year);
-    if (hsd >= now) {
+    if (hsd.gNow()) {
         return 1;
     } else return 0;
 }

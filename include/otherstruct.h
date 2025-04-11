@@ -55,25 +55,25 @@ class Date {
             return in;
         }
         void setDay(int d) {
-            if (checkDate(d))
+            if (checkDate(d, month, year))
                 day = d;
             else 
                 cout << "set day loi\n";
         }
         void setMonth(int m) {
-            if (checkDate(1, m)) 
+            if (checkDate(day, m, year)) 
                 month = m;
             else 
                 cout << "set month loi\n";
         }
         void parseString(string_view s) {
             day = (s[0] - '0') * 10 + (s[1] - '0');
-            month = (s[2] - '0') * 10 + (s[3] - '0');
-            year = (s[4] - '0') * 1000 + (s[5] - '0') * 100 
-                    + (s[6] - '0') * 10 + (s[7] - '0');
+            month = (s[3] - '0') * 10 + (s[4] - '0');
+            year = (s[6] - '0') * 1000 + (s[7] - '0') * 100 
+                    + (s[8] - '0') * 10 + (s[9] - '0');
         }
         void setYear(int y) {
-            if (checkDate(1, 1, y))
+            if (checkDate(day, month, y))
                 year = y;
             else 
                 cout << "set year loi\n";
@@ -112,11 +112,23 @@ class Date {
             Date now(x, y, z);
             return (now > *this); 
         }
+        bool leNow() {
+            int x, y, z;
+            getNow(x, y, z);
+            Date now(x, y, z);
+            return (now >= *this); 
+        }
         bool gNow() {
             int x, y, z;
             getNow(x, y, z);
             Date now(x, y, z);
             return (*this > now);
+        }
+        bool geNow() {
+            int x, y, z;
+            getNow(x, y, z);
+            Date now(x, y, z);
+            return (*this >= now);
         }
         int getDay() {return day;}
         int getMonth() {return month;}

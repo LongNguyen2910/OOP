@@ -7,7 +7,7 @@
 using namespace std;
 
 class NhaCungCap{
-    private:
+    protected:
         string maNhaCungCap;
         string tenNhaCungCap;
         string thongTinLienHe;
@@ -79,12 +79,12 @@ void NhaCungCap::nhap() {
         int n;
         cin >> n;
         cin.ignore(100, '\n');
-        sanPhamCungCap.resize(n);
         for (int i = 0; i < n; i++) {
-            sanPhamCungCap[i].nhap();
-            if (sanPhamCungCap.size() == 0) {
-                string tmp = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]) + "00" + to_string(1) + "0";
-                cout << tmp << "\n";
+            SanPham x;
+            x.nhap();
+            sanPhamCungCap.push_back(x);
+            if (sanPhamCungCap.size() == 1) {
+                string tmp = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]) + "00" + to_string(1);
                 sanPhamCungCap[i].setMa(tmp);
             } else {
                 int tmp = (sanPhamCungCap[i-1].getMa()[4] - '0')*100 + 
