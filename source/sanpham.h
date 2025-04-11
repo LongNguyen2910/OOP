@@ -10,7 +10,7 @@ using namespace std;
 const map<int, string> loai { {1, "Thuc Pham Tuoi Song"}, {2, "Thuc Pham Che Bien"}, {3, "Do Uong"}, {4, "Hoa Pham"}, 
                                 {5, "Trung - Sua"}, {6, "Do Gia Dung"}};
 
-class SanPham : public ObjectInterface {
+class SanPham : public ObjectInterface<ifstream&> {
     private:
         string ma;
         string ten;
@@ -89,7 +89,7 @@ class SanPham : public ObjectInterface {
         void nhap() override;
         void hienThi() override;
         bool kiemTraThoiHan() override;
-        void nhapFile(string) override;
+        void nhapFile(ifstream&) override;
 };
 
 void SanPham::nhap() {
@@ -114,12 +114,7 @@ void SanPham::nhap() {
     } while (!inRange(loaiHang, 1, 6) || ten.empty() || xuatXu.empty() || ngaySX.gNow() || (ngaySX > hsd));
 }
 
-void SanPham::nhapFile(string file) {
-    ifstream inf{file};
-    if (!inf) {
-        cerr << "Loi mo file\n";
-        return;
-    }
+void SanPham::nhapFile(ifstream& inf) {
     string s;
     getline(inf, ma);
     getline(inf, ten);

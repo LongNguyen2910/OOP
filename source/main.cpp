@@ -4,9 +4,7 @@ using namespace std;
 
 int main() {
     HopDong x;
-    x.nhap();
+    x.nhapFile("../data/hopdong.txt");
     x.hienThi();
-    x.luu();
-    x.kiemTraThoiHan();
     return 0;
 }

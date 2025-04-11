@@ -14,12 +14,13 @@ struct ListInterface {
     virtual T* timKiem();
 };
 
+template <class T>
 struct ObjectInterface {
     virtual void luu(string) = 0;
     virtual void nhap() = 0;
     virtual void hienThi() = 0;
     virtual bool kiemTraThoiHan() = 0;
-    virtual void nhapFile(string) = 0;
+    virtual void nhapFile(T) = 0;
 };
 
 #endif

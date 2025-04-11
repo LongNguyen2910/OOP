@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-class HopDong : public NhaCungCap, public ObjectInterface {
+class HopDong : public NhaCungCap, public ObjectInterface<string> {
     private:
         string maHopDong;
         Date ngayKyHopDong;
@@ -67,7 +67,7 @@ void HopDong::luu(string s = "../data/hopdong.txt") {
         i.luu(s);
     }
     outf << maHopDong << endl;
-    outf << ngayKyHopDong << ngayHetHan << endl;
+    outf << ngayKyHopDong << ngayHetHan;
     outf.close();
 }
 
@@ -103,15 +103,19 @@ void HopDong::nhapFile(string file) {
     getline(inf, NhaCungCap::maNhaCungCap);
     getline(inf, NhaCungCap::tenNhaCungCap);
     getline(inf, NhaCungCap::thongTinLienHe);
-    int n;
-    inf >> n;
-    cin.ignore(100, '\n');
+    getline(inf, s);
+    int n = stoi(s);
     for (int i = 0; i < n; i++) {
         SanPham sp;
-        sp.nhapFile(file);
-        sanPhamCungCap.push_back(sp);
+        sp.nhapFile(inf);
+        NhaCungCap::sanPhamCungCap.push_back(sp);
+        inf.ignore(100, '\n');
     }
-    inf >> maHopDong >> ngayKyHopDong >> ngayHetHan;
+    getline(inf, maHopDong);
+    getline(inf, s);
+    ngayKyHopDong.parseString(s);
+    getline(inf, s);    
+    ngayHetHan.parseString(s);
     inf.close();
 }
 
