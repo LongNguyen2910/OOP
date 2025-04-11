@@ -90,10 +90,10 @@ void NhaCungCap::nhap() {
                 int tmp = (sanPhamCungCap[i-1].getMa()[4] - '0')*100 + 
                         (sanPhamCungCap[i-1].getMa()[5] - '0')*10 +
                         (sanPhamCungCap[i-1].getMa()[6] - '0');
-                int ma = max((int)sanPhamCungCap.capacity(), tmp);
+                int ma = max((int)sanPhamCungCap.size(), tmp+1);
                 string tmp1 = "SP" + string(1, maNhaCungCap[0]) + string(1, maNhaCungCap[1]);
-                tmp1 += ma+1 < 10 ? "00" : (ma+1 < 100 ? "0" : "");
-                sanPhamCungCap[i].setMa(tmp1 + to_string(ma+1));
+                tmp1 += ma < 10 ? "00" : (ma < 100 ? "0" : "");
+                sanPhamCungCap[i].setMa(tmp1 + to_string(ma));
             }
         }
         if (!checkMa(maNhaCungCap, 5) || tenNhaCungCap.empty() || thongTinLienHe.empty()) {

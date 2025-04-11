@@ -66,7 +66,8 @@ void HopDong::luu(string s = "../data/hopdong.txt") {
     for (auto& i : NhaCungCap::sanPhamCungCap) {
         i.luu(s);
     }
-    outf << maHopDong << " " << ngayKyHopDong << " " << ngayHetHan << endl;
+    outf << maHopDong << endl;
+    outf << ngayKyHopDong << ngayHetHan << endl;
     outf.close();
 }
 

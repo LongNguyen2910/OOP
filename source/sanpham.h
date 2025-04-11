@@ -142,8 +142,8 @@ void SanPham::luu(string file = "../data/sanpham.txt") {
     outf << ten << endl;
     outf << loaiHang << endl;
     outf << xuatXu << endl;
-    outf << ngaySX << endl;
-    outf << hsd << endl;
+    outf << ngaySX;
+    outf << hsd;
     outf.close();
 }
 

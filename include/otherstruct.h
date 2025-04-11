@@ -36,8 +36,8 @@ class Date {
             return day == other.day && month == other.month && year == other.year;
         }
         friend ostream& operator<< (ostream& out, const Date& date) {
-            out << (date.day<10?'0':'\0') << date.day << "/"
-                << (date.month<10?'0':'\0') << date.month << "/" << date.year << "\n";
+            out << (date.day<10?"0":"") << date.day << "/"
+                << (date.month<10?"0":"") << date.month << "/" << date.year << "\n";
             return out;
         }
         friend istream& operator>> (istream& in, Date& date) {
