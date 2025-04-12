@@ -1,3 +1,5 @@
+#ifndef NHAKHO_H
+#define NHAKHO_H
 #include "sanpham.h"
 #include <vector>
 #include <iostream>
@@ -21,6 +23,7 @@ class NhaKho : public ListInterface<pair<int, SanPham>> {
         }
         void load() override;
         void them() override;
+        pair<int, SanPham>* them(SanPham&);
         void hienThi() override;
         void xuatFile(string) override;
         void xoa() override;
@@ -65,8 +68,9 @@ void NhaKho::xuatFile(string file) {
 }
 
 void NhaKho::them() {
-    cout << "Nhap so luong san pham can them: ";
-    int n; cin >> n;
+    cout << "Nhap so san pham can them: ";
+    int n;
+    cin >> n;
     cin.ignore(100, '\n');
     while (n--) {
         SanPham SP;
@@ -83,6 +87,21 @@ void NhaKho::them() {
             cout << "Da them san pham vao kho\n";
         }
     }
+}
+
+pair<int, SanPham>* NhaKho::them(SanPham& SP) {
+    int soLuong;
+    cout << "Nhap so luong: ";
+    cin >> soLuong;
+    pair<int, SanPham>* p = timKiem(SP.getMa());
+    if (p) {
+        p->first += soLuong;
+        cout << "Da them so luong\n";
+    } else {
+        sp.push_back(make_pair(soLuong, SP));
+        cout << "Da them san pham vao kho\n";
+    }
+    return p;
 }
 
 void NhaKho::load() {
@@ -206,3 +225,4 @@ pair<int, SanPham>* NhaKho::timKiem() {
     }
     return nullptr;
 }
+#endif

@@ -27,6 +27,7 @@ class HopDong : public NhaCungCap, public ObjectInterface {
                 cout << "Constructor hop dong loi\n";
             }
         }
+        HopDong(NhaCungCap& ncc): NhaCungCap(ncc) {}
         HopDong& operator=(HopDong other) {
             NhaCungCap::operator=(other);
             maHopDong = other.maHopDong;
