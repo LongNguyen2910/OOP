@@ -36,12 +36,17 @@ void DanhSachHopDong::them() {
     cout << "Nhap so hop dong muon them: ";
     int n;
     cin >> n;
+    if (n < 0) {
+        cout << "Nhap so hop dong khong hop le\n";
+        return;
+    }
     cin.ignore(100, '\n');
     for (int i = 0; i < n; i++) {
         HopDong x;
         x.nhap();
         dsHopDong.push_back(x);
     }
+    cout << "Them thanh cong\n";
 }
 
 void DanhSachHopDong::hienThi() {
@@ -52,13 +57,13 @@ void DanhSachHopDong::hienThi() {
 }
 
 void DanhSachHopDong::sapXep() {
-    int n = 0;
+    int n = 0, m = 0;
     do {
         DanhSachHopDong ds = dsHopDong;
         cout << "Sap xep hop dong\n";
-        cout << "1. Sap xep theo ngay ky hop dong\n";
+        cout << "1. Sap xep theo ngay ky hop dong tang dan\n";
         cout << "2. Sap xep theo ngay ky hop dong giam dan\n";
-        cout << "3. Sap xep theo ngay het han\n";
+        cout << "3. Sap xep theo ngay het han tang dan\n";
         cout << "4. Sap xep theo ngay het han giam dan\n";
         cout << "5. exit\n";
         cout << "Nhap lua chon: ";
@@ -95,14 +100,11 @@ void DanhSachHopDong::sapXep() {
         cout << "2. Xuat file\n";
         cout << "3. exit\n";
         cout << "Nhap lua chon: ";
-        int m;
         cin >> m;   
         switch (m) {
             case 1:
                 cout << "Danh sach hop dong sau khi sap xep:\n";
-                for (auto& i : ds.getDS()) {
-                    i.hienThi();
-                }
+                ds.hienThi();
                 break;
             case 2:
                 cout << "Nhap ten file muon luu: ";
@@ -118,7 +120,7 @@ void DanhSachHopDong::sapXep() {
                 cout << "Lua chon khong hop le\n";
         }
 
-    } while (n < 5);
+    } while (n < 5 && m < 3);
 }
 
 void DanhSachHopDong::luu(string s = "../data/hopdong.txt") {
@@ -129,14 +131,22 @@ void DanhSachHopDong::luu(string s = "../data/hopdong.txt") {
     }
     outf << dsHopDong.size() << endl;
     for (auto& i : dsHopDong) {
-        i.luu(s);
+        i.luu(outf);
     }
 }
 
 void DanhSachHopDong::xuatFile(string file) {
     string s = "../out/";
     file = s + file;
-    luu(file);
+    ofstream outf(file);
+    for (auto& i : dsHopDong) {
+        i.xuatFile(outf);
+        if (i.kiemTraThoiHan()) {
+            outf << "Hop dong con han\n";
+        } else {
+            outf << "Hop dong het han\n";
+        }
+    }
 }
 
 void DanhSachHopDong::load() {
@@ -158,7 +168,7 @@ void DanhSachHopDong::load() {
 
 HopDong* DanhSachHopDong::timKiem(string ma) {
     for (auto& i : dsHopDong) {
-        if (compare(i.getMa(), ma)) {
+        if (i.getMa() == ma) {
             return &i;
         }
     }
@@ -171,6 +181,10 @@ HopDong* DanhSachHopDong::timKiem() {
     string ten;
     cin.ignore(100, '\n');
     getline(cin, ten);
+    if (ten.empty()) {
+        cout << "Ten hop dong khong duoc de trong\n";
+        return nullptr;
+    }
     for (auto& i : dsHopDong) {
         if (compare(i.getTen(), ten)) {
             return &i;
@@ -188,7 +202,7 @@ void DanhSachHopDong::sua() {
     HopDong* x = timKiem(ma);
     HopDong tmp;
     if (x != nullptr) {
-        cout << "Nhap thong tin hop dong muon sua\n";
+        cout << "Nhap thong tin moi cho hop dong\n";
         tmp.nhap();
     }
     *x = tmp;
@@ -200,6 +214,7 @@ void DanhSachHopDong::sua() {
         return;
     }
     luu(filePath);
+    cout << "Sua thanh cong\n";
 }
 
 void DanhSachHopDong::xoa() {
@@ -208,10 +223,12 @@ void DanhSachHopDong::xoa() {
     cin >> ma;
     cin.ignore(100, '\n');
     HopDong* x = timKiem(ma);
-    if (x != nullptr)
-        dsHopDong.erase(find_if(dsHopDong.begin(), dsHopDong.end(), [=](HopDong a) {
+    if (x != nullptr) {
+        dsHopDong.erase(find_if(dsHopDong.begin(), dsHopDong.end(), [&](HopDong& a) {
             return a.getMa() == ma;
         }));
+        cout << "Da xoa hop dong\n";
+    }
     string filePath = "../data/hopdong.txt";
     ofstream outFile(filePath, ios::trunc); 
     if (!outFile) {
@@ -219,6 +236,7 @@ void DanhSachHopDong::xoa() {
         return;
     }
     luu(filePath);
+    cout << "Xoa thanh cong\n";
 }
 
 

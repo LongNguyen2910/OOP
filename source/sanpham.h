@@ -85,11 +85,12 @@ class SanPham : public ObjectInterface {
                 cout << "set hsd loi\n";
             }
         }
-        void luu(string) override;
+        void luu(ofstream&) override;
         void nhap() override;
         void hienThi() override;
         bool kiemTraThoiHan() override;
         void nhapFile(ifstream&) override;
+        void xuatFile(ofstream&) override;
 };
 
 void SanPham::nhap() {
@@ -107,12 +108,22 @@ void SanPham::nhap() {
         cout << "Nhap ngay SX\n";
         cin >> ngaySX;
         cout << "Nhap hsd\n";
-        cin >> hsd;
-        cin.ignore(100, '\n');
+        cin >> hsd;       
         if (!inRange(loaiHang, 1, 6) || ten.empty() || xuatXu.empty() || ngaySX.gNow() || (ngaySX > hsd)) {
             cout << "nhap loi\n";
         }
     } while (!inRange(loaiHang, 1, 6) || ten.empty() || xuatXu.empty() || ngaySX.gNow() || (ngaySX > hsd));
+}
+
+void SanPham::xuatFile(ofstream& outf) {
+    outf << "Ma: " << ma << "\n";
+    outf << "Ten: " << ten << "\n";
+    outf << "Loai hang: " << loai.at(loaiHang) << "\n";
+    outf << "Xuat xu: " << xuatXu << "\n";
+    outf << "Ngay san xuat\n";
+    outf << ngaySX;
+    outf << "Han su dung\n";
+    outf << hsd;
 }
 
 void SanPham::nhapFile(ifstream& inf) {
@@ -122,25 +133,19 @@ void SanPham::nhapFile(ifstream& inf) {
     getline(inf, s);
     loaiHang = s[0] - '0';
     getline(inf, xuatXu);
-    inf >> s;
+    getline(inf, s);
     ngaySX.parseString(s);
-    inf >> s;
+    getline(inf, s);
     hsd.parseString(s);
 }
 
-void SanPham::luu(string file = "../data/sanpham.txt") {
-    ofstream outf{file, ios::app};
-    if (!outf) {
-        cerr << "Loi luu data\n";
-        return;
-    }
+void SanPham::luu(ofstream& outf) {
     outf << ma << endl;
     outf << ten << endl;
     outf << loaiHang << endl;
     outf << xuatXu << endl;
     outf << ngaySX;
     outf << hsd;
-    outf.close();
 }
 
 void SanPham::hienThi() {
@@ -155,9 +160,7 @@ void SanPham::hienThi() {
 }
 
 bool SanPham::kiemTraThoiHan() {
-    if (hsd.gNow()) {
-        return 1;
-    } else return 0;
+    return hsd.gNow();
 }
 
 

@@ -16,11 +16,12 @@ struct ListInterface {
 };
 
 struct ObjectInterface {
-    virtual void luu(string) = 0;
+    virtual void luu(ofstream&) = 0;
     virtual void nhap() = 0;
     virtual void hienThi() = 0;
     virtual bool kiemTraThoiHan() = 0;
     virtual void nhapFile(ifstream&) = 0;
+    virtual void xuatFile(ofstream&) = 0;
 };
 
 #endif

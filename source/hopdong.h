@@ -53,29 +53,24 @@ class HopDong : public NhaCungCap, public ObjectInterface {
         Date getNgayKy() { return ngayKyHopDong; }
         Date getNgayHetHan() { return ngayHetHan; }
 
-        void luu(string) override;
+        void luu(ofstream&) override;
         void nhap() override;
         void hienThi() override;
         bool kiemTraThoiHan() override;
         void nhapFile(ifstream&) override;
+        void xuatFile(ofstream&) override;
 };
 
-void HopDong::luu(string s = "../data/hopdong.txt") {
-    ofstream outf(s, ios::app);
-    if (!outf) {
-        cerr << "Loi mo file\n";
-        return;
-    }
+void HopDong::luu(ofstream& outf) {
     outf << NhaCungCap::maNhaCungCap << endl; 
     outf << NhaCungCap::tenNhaCungCap << endl;
     outf << NhaCungCap::thongTinLienHe << endl;
     outf << NhaCungCap::sanPhamCungCap.size() << endl;
     for (auto& i : NhaCungCap::sanPhamCungCap) {
-        i.luu(s);
+        i.luu(outf);
     }
     outf << maHopDong << endl;
     outf << ngayKyHopDong << ngayHetHan;
-    outf.close();
 }
 
 void HopDong::nhap() {
@@ -101,6 +96,17 @@ void HopDong::hienThi() {
     cout << "Ngay het han: " << ngayHetHan;
 }
 
+void HopDong::xuatFile(ofstream& outf) {
+    outf << "Ma nha cung cap: " << NhaCungCap::maNhaCungCap << endl; 
+    outf << "Ten nha cung cap: "<< NhaCungCap::tenNhaCungCap << endl;
+    outf << "Thong tin lien he: "<< NhaCungCap::thongTinLienHe << endl;
+    for (auto& i : NhaCungCap::sanPhamCungCap) {
+        i.xuatFile(outf);
+    }
+    outf << maHopDong << endl;
+    outf << ngayKyHopDong << ngayHetHan;
+}
+
 void HopDong::nhapFile(ifstream& inf) {
     string s;
     getline(inf, NhaCungCap::maNhaCungCap);
@@ -112,7 +118,6 @@ void HopDong::nhapFile(ifstream& inf) {
         SanPham sp;
         sp.nhapFile(inf);
         NhaCungCap::sanPhamCungCap.push_back(sp);
-        inf.ignore(100, '\n');
     }
     getline(inf, maHopDong);
     getline(inf, s);
@@ -122,13 +127,7 @@ void HopDong::nhapFile(ifstream& inf) {
 }
 
 bool HopDong::kiemTraThoiHan() {
-    if (ngayHetHan.leNow()) {
-        cout << "Hop dong da het han\n";
-        return 0;
-    } else {
-        cout << "Hop dong con han\n";
-        return 1;
-    }
+    return ngayHetHan.lNow();
 }
 
 #endif
