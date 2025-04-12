@@ -44,6 +44,10 @@ void DanhSachHopDong::them() {
     for (int i = 0; i < n; i++) {
         HopDong x;
         x.nhap();
+        if (timKiem(x.getMa()) != nullptr) {
+            cout << "Hop dong da ton tai\n";
+            return;
+        }
         dsHopDong.push_back(x);
     }
     cout << "Them thanh cong\n";
