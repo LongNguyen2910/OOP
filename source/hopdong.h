@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-class HopDong : public NhaCungCap, public ObjectInterface<string> {
+class HopDong : public NhaCungCap, public ObjectInterface {
     private:
         string maHopDong;
         Date ngayKyHopDong;
@@ -26,6 +26,13 @@ class HopDong : public NhaCungCap, public ObjectInterface<string> {
             } else {
                 cout << "Constructor hop dong loi\n";
             }
+        }
+        HopDong& operator=(HopDong other) {
+            NhaCungCap::operator=(other);
+            maHopDong = other.maHopDong;
+            ngayKyHopDong = other.ngayKyHopDong;
+            ngayHetHan = other.ngayHetHan;
+            return *this;
         }
         void setMa(string_view m) { maHopDong = m; }
         string getMa() { return maHopDong; }
@@ -50,7 +57,7 @@ class HopDong : public NhaCungCap, public ObjectInterface<string> {
         void nhap() override;
         void hienThi() override;
         bool kiemTraThoiHan() override;
-        void nhapFile(string) override;
+        void nhapFile(ifstream&) override;
 };
 
 void HopDong::luu(string s = "../data/hopdong.txt") {
@@ -80,6 +87,7 @@ void HopDong::nhap() {
         cin >> ngayKyHopDong;
         cout << "Nhap ngay het han\n";
         cin >> ngayHetHan;
+        cin.ignore(100, '\n');
         if ( ngayKyHopDong > ngayHetHan || !checkMa(maHopDong, 5) || ngayKyHopDong.gNow()) {
             cout << "nhap loi\n";
         }
@@ -93,12 +101,7 @@ void HopDong::hienThi() {
     cout << "Ngay het han: " << ngayHetHan;
 }
 
-void HopDong::nhapFile(string file) {
-    ifstream inf{file};
-    if (!inf) {
-        cerr << "Loi mo file\n";
-        return;
-    }
+void HopDong::nhapFile(ifstream& inf) {
     string s;
     getline(inf, NhaCungCap::maNhaCungCap);
     getline(inf, NhaCungCap::tenNhaCungCap);
@@ -116,7 +119,6 @@ void HopDong::nhapFile(string file) {
     ngayKyHopDong.parseString(s);
     getline(inf, s);    
     ngayHetHan.parseString(s);
-    inf.close();
 }
 
 bool HopDong::kiemTraThoiHan() {

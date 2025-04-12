@@ -51,7 +51,8 @@ class NhaCungCap{
         vector<SanPham>& getSanPham() {
             return sanPhamCungCap;
         }
-        NhaCungCap& operator=(NhaCungCap& other) {
+        NhaCungCap& operator=(NhaCungCap other) {
+            maNhaCungCap = other.maNhaCungCap;
             tenNhaCungCap = other.tenNhaCungCap;
             thongTinLienHe = other.thongTinLienHe;
             sanPhamCungCap = other.sanPhamCungCap;

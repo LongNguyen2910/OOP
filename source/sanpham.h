@@ -10,7 +10,7 @@ using namespace std;
 const map<int, string> loai { {1, "Thuc Pham Tuoi Song"}, {2, "Thuc Pham Che Bien"}, {3, "Do Uong"}, {4, "Hoa Pham"}, 
                                 {5, "Trung - Sua"}, {6, "Do Gia Dung"}};
 
-class SanPham : public ObjectInterface<ifstream&> {
+class SanPham : public ObjectInterface {
     private:
         string ma;
         string ten;
@@ -108,6 +108,7 @@ void SanPham::nhap() {
         cin >> ngaySX;
         cout << "Nhap hsd\n";
         cin >> hsd;
+        cin.ignore(100, '\n');
         if (!inRange(loaiHang, 1, 6) || ten.empty() || xuatXu.empty() || ngaySX.gNow() || (ngaySX > hsd)) {
             cout << "nhap loi\n";
         }
