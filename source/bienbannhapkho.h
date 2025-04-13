@@ -7,32 +7,31 @@
 #include "hopdong.h"
 using namespace std;
 
-class BienBanNhapKho : public NhaKho, public DanhSachHopDong {
+class BienBanNhapKho {
     private:
         string tenNhaCungCap;
         vector<pair<int, string>> sanPhamNhapKho;
     public:
-        BienBanNhapKho() : NhaKho(), DanhSachHopDong() {
+        BienBanNhapKho() {
             tenNhaCungCap = "Unknown";
         }
-        BienBanNhapKho(NhaKho& ds1, DanhSachHopDong& ds2) : NhaKho(ds1), DanhSachHopDong(ds2) {}
         string getTenNhaCungCap() { return tenNhaCungCap; }
-        void nhapBaoCao();
+        vector<pair<int, string>> getSanPhamNhapKho() { return sanPhamNhapKho; }
+        void nhapBaoCao(DanhSachHopDong&, NhaKho&);
         void hienThiBaoCao();
         void loadBaoCao(ifstream&);
         void luuBaoCao(ofstream&);
 };
 
 
-void BienBanNhapKho::nhapBaoCao() {
-    cout << "Nhap ten nha cung cap: ";
-    getline(cin, tenNhaCungCap);
-    cin.ignore(100, '\n');
-    if (DanhSachHopDong::timKiem(tenNhaCungCap)) {
-        NhaCungCap& nhaCungCap = *(DanhSachHopDong::timKiem(tenNhaCungCap));
+void BienBanNhapKho::nhapBaoCao(DanhSachHopDong& dsHopDong, NhaKho& nhaKho) {
+    HopDong* hopDong = dsHopDong.timKiem();
+    if (hopDong) {
+        NhaCungCap& nhaCungCap = *(hopDong);
+        tenNhaCungCap = nhaCungCap.getTen();
         if (static_cast<HopDong>(nhaCungCap).kiemTraThoiHan()) {
             for (auto& sp : nhaCungCap.getSanPham()) {
-                pair<int, SanPham> tmp = *(NhaKho::them(sp));
+                pair<int, SanPham> tmp = nhaKho.them(sp);
                 sanPhamNhapKho.push_back(make_pair(tmp.first, tmp.second.getMa()));
             }
         } else {

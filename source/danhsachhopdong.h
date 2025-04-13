@@ -176,14 +176,12 @@ HopDong* DanhSachHopDong::timKiem(string ma) {
             return &i;
         }
     }
-    cout << "Khong tim thay hop dong\n";
     return nullptr;
 }
 
 HopDong* DanhSachHopDong::timKiem() {
     cout << "Nhap ten nha cung cap muon tim kiem: ";
     string ten;
-    cin.ignore(100, '\n');
     getline(cin, ten);
     if (ten.empty()) {
         cout << "Ten hop dong khong duoc de trong\n";
@@ -194,7 +192,6 @@ HopDong* DanhSachHopDong::timKiem() {
             return &i;
         }
     }
-    cout << "Khong tim thay hop dong\n";
     return nullptr;
 }
 

@@ -8,17 +8,16 @@ class DsBienBanNhapKho {
     private:
         vector<BienBanNhapKho> dsBienBanNhapKho;
     public:
-        DsBienBanNhapKho() {
-            dsBienBanNhapKho = vector<BienBanNhapKho>();
-        }
+        DsBienBanNhapKho() = default;
         void load() {
             ifstream inf{"../data/bienbannhapkho.txt"};
             if (!inf) {
                 cerr << "Loi mo file\n";
                 return;
             }
-            int n;
-            inf >> n;
+            string s;
+            getline(inf, s);
+            int n = stoi(s);
             for (int i = 0; i < n; i++) {
                 BienBanNhapKho bb;
                 bb.loadBaoCao(inf);
@@ -36,7 +35,7 @@ class DsBienBanNhapKho {
                 bb.luuBaoCao(outf);
             }
         }
-        void them() {
+        void them(DanhSachHopDong & dsHopDong, NhaKho& nhaKho) {
             cout << "So bien ban nhap kho muon them: ";
             int n;
             cin >> n;
@@ -47,7 +46,7 @@ class DsBienBanNhapKho {
             }
             while (n--) {
                 BienBanNhapKho bb;
-                bb.nhapBaoCao();
+                bb.nhapBaoCao(dsHopDong, nhaKho);
                 dsBienBanNhapKho.push_back(bb);
             }
         }
@@ -60,7 +59,6 @@ class DsBienBanNhapKho {
         void xoa() {
             cout << "Nhap ten nha cung cap muon xoa: ";
             string ten;
-            cin.ignore(100, '\n');
             getline(cin, ten);
             if (ten.empty()) {
                 cout << "Ten nha cung cap khong duoc de trong\n";

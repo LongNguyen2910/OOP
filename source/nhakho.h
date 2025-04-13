@@ -23,7 +23,7 @@ class NhaKho : public ListInterface<pair<int, SanPham>> {
         }
         void load() override;
         void them() override;
-        pair<int, SanPham>* them(SanPham&);
+        pair<int, SanPham> them(SanPham&);
         void hienThi() override;
         void xuatFile(string) override;
         void xoa() override;
@@ -89,11 +89,13 @@ void NhaKho::them() {
     }
 }
 
-pair<int, SanPham>* NhaKho::them(SanPham& SP) {
+pair<int, SanPham> NhaKho::them(SanPham& SP) {
+    pair<int, SanPham>* p = timKiem(SP.getMa());
+    cout << "Thong tin san pham: \n";
+    SP.hienThi();
     int soLuong;
     cout << "Nhap so luong: ";
     cin >> soLuong;
-    pair<int, SanPham>* p = timKiem(SP.getMa());
     if (p) {
         p->first += soLuong;
         cout << "Da them so luong\n";
@@ -101,7 +103,7 @@ pair<int, SanPham>* NhaKho::them(SanPham& SP) {
         sp.push_back(make_pair(soLuong, SP));
         cout << "Da them san pham vao kho\n";
     }
-    return p;
+    return {soLuong, SP};
 }
 
 void NhaKho::load() {
